@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser,PermissionsMixin, AbstractBaseUser,BaseUserManager
 from affecte.models import*
 from django.utils import timezone
+from django.conf import settings
 # Create your models here.
 class CustumerAccountManager(BaseUserManager):
     def create_user(self, email, user_name,first_name,password, **other_fields):
@@ -25,7 +26,7 @@ class CustumerAccountManager(BaseUserManager):
         return self.create_user(email, user_name,first_name,**other_fields)
 
 class DonateurUser(AbstractBaseUser,PermissionsMixin):
-    user_name=models.CharField(max_length=30,unique=True,primary_key=True)
+    user_name=models.CharField(max_length=30,unique=True)
     last_name=models.CharField(max_length=30)
     email=models.EmailField(max_length=255,unique=True)
     numero=models.CharField(max_length=30)
@@ -56,7 +57,7 @@ class DonateurUser(AbstractBaseUser,PermissionsMixin):
 
 class EffectuerDonArge(models.Model):
     #Espece
-    donateur=models.ForeignKey(DonateurUser,on_delete=models.CASCADE,default='issa')
+    donateur=models.ForeignKey(DonateurUser,on_delete=models.CASCADE,default=1)
     typeDons=models.CharField(max_length=30,default='null')
     categorieV=models.CharField(max_length=30,default='null')
     cibleV=models.CharField(max_length=100,default='null')

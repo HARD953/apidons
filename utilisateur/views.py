@@ -86,10 +86,9 @@ class EffectuerDonsArg(APIView):
         message='Merci pour votre contribution:\n nous vous contacterons dans peu'
         data=request.data
         if self.request.user.is_authenticated:
-            data['donateur']=self.request.user.user_name
+            data['donateur']=self.request.user.id
             serializer = EffectuerArgSerializer(data=data)
         else:
-            data['donateur']='kone'
             serializer = EffectuerArgSerializer(data=data)
 
         error_message=None
@@ -128,10 +127,9 @@ class EffectuerDonsObj(APIView):
         message='Merci pour votre contribution:\n nous vous contacterons dans peu'
         data=request.data
         if self.request.user.is_authenticated:
-            data['donateur']=self.request.user.user_name
+            data['donateur']=self.request.user.id
             serializer = EffectuerNatSerializer(data=data)
         else:
-            data['donateur']='kone'
             serializer = EffectuerNatSerializer(data=data)
         error_message=None
         message='Merci pour votre contribution:\n nous vous contacterons dans peu'
