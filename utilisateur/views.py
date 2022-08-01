@@ -36,9 +36,7 @@ class CreateDonateur(APIView):
 
     def validateDonateur(self,donateur):
         error_message = None
-        if (not donateur['first_name']):
-            error_message="Svp entrer votre nom"
-        elif (not donateur['last_name']):
+        if (not donateur['last_name']):
             error_message="Svp entrer votre prenom"
         elif (not donateur['numero']):
             error_message="Svp entrer votre numero de téléphone"
@@ -64,9 +62,7 @@ class CreateDonateurOr(APIView):
 
     def validateDonateur(self,donateur):
         error_message = None
-        if (not donateur['first_name']):
-            error_message="Svp entrer votre nom"
-        elif (not donateur['last_name']):
+        if (not donateur['last_name']):
             error_message="Svp entrer votre prenom"
         elif (not donateur['numero']):
             error_message="Svp entrer votre numero de téléphone"
@@ -74,6 +70,8 @@ class CreateDonateurOr(APIView):
             error_message="Svp entrer votre email"
         elif (not donateur['user_name']):
             error_message="Svp entrer un username de 5 caractere min"
+        elif (not donateur['organisations']):
+            error_message="Svp entrer le nom de votre organisations"
         return error_message
 
 class EffectuerDonsArg(APIView):
@@ -88,9 +86,10 @@ class EffectuerDonsArg(APIView):
         message='Merci pour votre contribution:\n nous vous contacterons dans peu'
         data=request.data
         if self.request.user.is_authenticated:
-            data['donateur']=self.request.user.id
+            data['donateur']=self.request.user.user_name
             serializer = EffectuerArgSerializer(data=data)
         else:
+            data['donateur']='kone'
             serializer = EffectuerArgSerializer(data=data)
 
         error_message=None
@@ -129,9 +128,10 @@ class EffectuerDonsObj(APIView):
         message='Merci pour votre contribution:\n nous vous contacterons dans peu'
         data=request.data
         if self.request.user.is_authenticated:
-            data['donateur']=self.request.user.id
+            data['donateur']=self.request.user.user_name
             serializer = EffectuerNatSerializer(data=data)
         else:
+            data['donateur']='kone'
             serializer = EffectuerNatSerializer(data=data)
         error_message=None
         message='Merci pour votre contribution:\n nous vous contacterons dans peu'

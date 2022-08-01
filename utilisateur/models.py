@@ -25,13 +25,11 @@ class CustumerAccountManager(BaseUserManager):
         return self.create_user(email, user_name,first_name,**other_fields)
 
 class DonateurUser(AbstractBaseUser,PermissionsMixin):
-    user_name=models.CharField(max_length=30,unique=True)
-    first_name=models.CharField(max_length=30)
+    user_name=models.CharField(max_length=30,unique=True,primary_key=True)
     last_name=models.CharField(max_length=30)
     email=models.EmailField(max_length=255,unique=True)
     numero=models.CharField(max_length=30)
     organisations=models.CharField(max_length=30,default="null")
-
     objects=CustumerAccountManager()
     # adresse=models.CharField(max_length=300, blank=True, null=True)
     # about_me=models.TextField(max_length=500, blank=True, null=True)
@@ -58,7 +56,7 @@ class DonateurUser(AbstractBaseUser,PermissionsMixin):
 
 class EffectuerDonArge(models.Model):
     #Espece
-    donateur=models.ForeignKey(DonateurUser,on_delete=models.CASCADE,default=1)
+    donateur=models.ForeignKey(DonateurUser,on_delete=models.CASCADE,default='issa')
     typeDons=models.CharField(max_length=30,default='null')
     categorieV=models.CharField(max_length=30,default='null')
     cibleV=models.CharField(max_length=100,default='null')
@@ -76,7 +74,7 @@ class EffectuerDonNature(models.Model):
     typeDons=models.CharField(max_length=30,default='null')
     categorieV=models.CharField(max_length=30,default='null')
     cibleV=models.CharField(max_length=100,default='null')
-    categorieObjet=models.ForeignKey(Categorie_obj,on_delete=models.CASCADE)
+    categorieObjet=models.CharField(max_length=100,default='null')
     typeObjet=models.CharField(max_length=30,default='null')
     lieu_reception=models.CharField(max_length=100,default='null')
     photo=models.CharField(max_length=100,default='null')

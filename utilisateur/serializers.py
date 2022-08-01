@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class DonateurMSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = DonateurUser
-        fields=['id','user_name','first_name','last_name','email','numero','password']
+        fields=['user_name','last_name','email','numero','password']
         extra_kwargs ={
             'password':{'write_only':True}
         }
@@ -21,7 +21,7 @@ class DonateurMSerializer(serializers.HyperlinkedModelSerializer):
 class DonateurOrSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = DonateurUser
-        fields=['id','user_name','first_name','last_name','email','numero','organisations','password']
+        fields=['user_name','last_name','email','numero','organisations','password']
         extra_kwargs ={
             'password':{'write_only':True}
         }
